@@ -35,7 +35,7 @@ async def issue_comment_created(event, gh, *args, **kwargs):
 
     author = event.data['comment']['user']['login']
 
-    is_me = author == "jcolechanged"
+    is_me = author == "jColeChanged"
     reaction_url = event.data['comment']['url'] + '/reactions'
     if is_me:
 
