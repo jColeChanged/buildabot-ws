@@ -15,8 +15,19 @@ async def issue_opened_event(event, gh, *args, **kwargs):
     url = event.data['issue']['comments_url']
     author = event.data['issue']['user']['login']
     message = f"Thanks for report @{author}! I will look into this ASAP! (I'm a bot)"
-    
+
     await gh.post(url, data={"body": message})
+
+@router.register("pull_request", action="closed")
+asynch def pull_request_closed(event, gh, *args, **kwargs):
+
+    merged = event.data['pull_request']['merged']
+
+    if merged:
+        url = event.data['pull_request']['issue_comment_url']
+        message = "Thanks!"
+
+        await gh.post(url, data={"body": message})
 
 
 async def main(request):
