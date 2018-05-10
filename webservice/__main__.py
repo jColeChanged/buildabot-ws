@@ -24,7 +24,7 @@ async def pull_request_closed(event, gh, *args, **kwargs):
     merged = event.data['pull_request']['merged']
 
     if merged:
-        url = event.data['pull_request']['issue_comment_url']
+        url = event.data['pull_request']['issue_comments_url']
         message = "Thanks!"
 
         await gh.post(url, data={"body": message})
