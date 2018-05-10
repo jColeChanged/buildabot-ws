@@ -19,7 +19,7 @@ async def issue_opened_event(event, gh, *args, **kwargs):
     await gh.post(url, data={"body": message})
 
 @router.register("pull_request", action="closed")
-asynch def pull_request_closed(event, gh, *args, **kwargs):
+async def pull_request_closed(event, gh, *args, **kwargs):
 
     merged = event.data['pull_request']['merged']
 
