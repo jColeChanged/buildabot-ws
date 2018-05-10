@@ -30,6 +30,22 @@ async def pull_request_closed(event, gh, *args, **kwargs):
         await gh.post(url, data={"body": message})
 
 
+@router.register("issue_comment", action="created")
+async def issue_comment_created(event, gh, *args, **kwargs):
+
+    author = event.data['comment']['user']['login']
+
+    is_me = author == "jcolechanged"
+    reaction_url = event.data['comment']['url'] + '/reactions'
+    if is_me:
+
+        await gh.post(
+            reaction_url,
+            data={'content': 'heart'},
+            accept='application/vnd.github.squirrel-girl-preview+json'
+        )
+
+
 async def main(request):
     body = await request.read()
 
