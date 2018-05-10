@@ -30,6 +30,13 @@ async def pull_request_closed(event, gh, *args, **kwargs):
         await gh.post(url, data={"body": message})
 
 
+@router.register("pull_request", action="opened")
+async def pull_request_closed(event, gh, *args, **kwargs):
+
+    url = event.data['pull_request']['issue_url']
+    await gh.patch(url, data={"labels": ['pending_review']})
+
+
 @router.register("issue_comment", action="created")
 async def issue_comment_created(event, gh, *args, **kwargs):
 
